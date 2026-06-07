@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Harini S — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #1B3A6B; --accent: #2563A8; --gold: #C9A84C;
+      --light: #EBF2FA; --off: #F8FAFD; --gray: #374151; --mid: #6B7280;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'DM Sans',sans-serif; background:var(--off); color:var(--gray); overflow-x:hidden; }
+
+    /* NAV */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:999;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:16px 60px;
+      background:rgba(27,58,107,0.97); backdrop-filter:blur(12px);
+      box-shadow:0 2px 20px rgba(0,0,0,0.2);
+    }
+    .nav-logo { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:#fff; }
+    .nav-links { display:flex; gap:32px; list-style:none; }
+    .nav-links a { color:#C8D8F0; text-decoration:none; font-size:14px; font-weight:500; transition:color .3s; }
+    .nav-links a:hover { color:#fff; }
+
+    /* HERO */
+    .hero {
+      min-height:100vh; display:flex; align-items:center;
+      background:linear-gradient(135deg,#0d1f3c 0%,#1B3A6B 55%,#1e4d8c 100%);
+      position:relative; overflow:hidden; padding:0 60px;
+    }
+    .hero::before {
+      content:''; position:absolute; top:-30%; right:-15%;
+      width:650px; height:650px; border-radius:50%;
+      background:radial-gradient(circle,rgba(37,99,168,0.35) 0%,transparent 70%);
+    }
+    .hero::after {
+      content:''; position:absolute; bottom:-20%; left:-10%;
+      width:450px; height:450px; border-radius:50%;
+      background:radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 70%);
+    }
+    .hero-inner { position:relative; z-index:2; max-width:800px; }
+    .hero-badge {
+      display:inline-block; background:rgba(201,168,76,0.18);
+      border:1px solid rgba(201,168,76,0.4); color:var(--gold);
+      padding:6px 18px; border-radius:20px; font-size:13px; font-weight:500;
+      letter-spacing:1px; margin-bottom:22px;
+      animation:fadeUp .7s ease both;
+    }
+    .hero h1 {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(50px,8vw,90px); font-weight:900;
+      color:#fff; line-height:1.05; margin-bottom:18px;
+      animation:fadeUp .7s .1s ease both;
+    }
+    .hero h1 span { color:var(--gold); }
+    .hero-desc {
+      font-size:17px; color:#A8CCEE; font-weight:300;
+      line-height:1.8; max-width:520px; margin-bottom:36px;
+      animation:fadeUp .7s .2s ease both;
+    }
+    .hero-btns { display:flex; gap:14px; flex-wrap:wrap; animation:fadeUp .7s .3s ease both; }
+    .btn-gold {
+      background:var(--gold); color:#1a1a1a; padding:13px 30px;
+      border-radius:6px; text-decoration:none; font-weight:600; font-size:15px;
+      transition:all .3s; box-shadow:0 4px 18px rgba(201,168,76,0.35);
+    }
+    .btn-gold:hover { background:#dbb95a; transform:translateY(-2px); }
+    .btn-ghost {
+      border:1.5px solid rgba(255,255,255,0.35); color:#fff;
+      padding:13px 30px; border-radius:6px; text-decoration:none;
+      font-weight:500; font-size:15px; transition:all .3s;
+    }
+    .btn-ghost:hover { border-color:#fff; background:rgba(255,255,255,0.08); }
+
+    /* WRAPPER */
+    .wrap { max-width:1080px; margin:0 auto; padding:80px 40px; }
+
+    /* SECTION HEADER */
+    .sec-label { font-size:11px; font-weight:600; letter-spacing:3px; color:var(--accent); text-transform:uppercase; margin-bottom:8px; }
+    .sec-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(28px,4vw,42px); font-weight:700; color:var(--navy); margin-bottom:44px;
+    }
+    .sec-title::after { content:''; display:block; width:52px; height:3px; background:var(--gold); margin-top:12px; border-radius:2px; }
+
+    /* ABOUT */
+    #about { background:#fff; }
+    .about-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:56px; align-items:start; }
+    .about-text p { font-size:15.5px; line-height:1.9; color:var(--gray); margin-bottom:14px; }
+    .about-stats { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .stat { background:var(--light); border-radius:12px; padding:22px; text-align:center; border-left:3px solid var(--accent); }
+    .stat-n { font-family:'Playfair Display',serif; font-size:34px; font-weight:700; color:var(--navy); }
+    .stat-l { font-size:12px; color:var(--mid); margin-top:4px; font-weight:500; }
+
+    /* SKILLS */
+    #skills { background:var(--off); }
+    .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .skill-card {
+      background:#fff; border-radius:14px; padding:26px;
+      box-shadow:0 2px 18px rgba(27,58,107,0.07);
+      border-top:3px solid var(--accent); transition:transform .3s,box-shadow .3s;
+    }
+    .skill-card:hover { transform:translateY(-4px); box-shadow:0 10px 30px rgba(27,58,107,0.13); }
+    .sk-icon { font-size:26px; margin-bottom:10px; }
+    .skill-card h3 { font-size:14px; font-weight:600; color:var(--navy); margin-bottom:10px; }
+    .tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .tag { background:var(--light); color:var(--accent); font-size:11px; font-weight:500; padding:4px 10px; border-radius:20px; }
+
+    /* PROJECTS */
+    #projects { background:#fff; }
+    .proj-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+    .proj-card {
+      background:var(--off); border-radius:14px; padding:28px;
+      border:1px solid #e2eaf5; transition:all .3s; position:relative; overflow:hidden;
+    }
+    .proj-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; background:linear-gradient(90deg,var(--navy),var(--accent)); }
+    .proj-card:hover { border-color:var(--accent); transform:translateY(-3px); box-shadow:0 12px 32px rgba(27,58,107,0.1); }
+    .proj-team { font-size:11px; color:var(--gold); font-weight:600; letter-spacing:.5px; margin-bottom:8px; }
+    .proj-card h3 { font-size:15px; font-weight:600; color:var(--navy); margin-bottom:10px; line-height:1.4; }
+    .proj-card p { font-size:13.5px; color:var(--mid); line-height:1.75; margin-bottom:14px; }
+    .tech-tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .tech { background:#ddeaf8; color:var(--accent); font-size:11px; font-weight:600; padding:3px 10px; border-radius:4px; }
+
+    /* EDUCATION */
+    #education { background:var(--off); }
+    .edu-list { display:flex; flex-direction:column; gap:18px; }
+    .edu-card {
+      background:#fff; border-radius:14px; padding:26px 30px;
+      display:flex; justify-content:space-between; align-items:flex-start;
+      box-shadow:0 2px 14px rgba(27,58,107,0.06); border-left:4px solid var(--navy);
+    }
+    .edu-card h3 { font-size:16px; font-weight:600; color:var(--navy); margin-bottom:5px; }
+    .edu-school { font-size:13.5px; color:var(--mid); font-style:italic; margin-bottom:3px; }
+    .edu-note { font-size:12.5px; color:var(--mid); }
+    .edu-yr { font-size:13px; color:var(--accent); font-weight:600; white-space:nowrap; margin-left:18px; }
+
+    /* CERTIFICATIONS */
+    #certifications { background:var(--navy); }
+    #certifications .sec-label { color:var(--gold); }
+    #certifications .sec-title { color:#fff; }
+    #certifications .sec-title::after { background:var(--gold); }
+    .cert-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .cert-card {
+      background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1);
+      border-radius:12px; padding:20px; transition:all .3s;
+    }
+    .cert-card:hover { background:rgba(255,255,255,0.13); transform:translateY(-2px); }
+    .cert-org { font-size:10.5px; font-weight:600; letter-spacing:1px; color:var(--gold); text-transform:uppercase; margin-bottom:7px; }
+    .cert-card p { font-size:13.5px; color:#C8D8F0; line-height:1.55; }
+
+    /* CONTACT */
+    #contact { background:var(--off); text-align:center; }
+    .contact-box {
+      background:#fff; border-radius:20px; padding:56px;
+      box-shadow:0 4px 36px rgba(27,58,107,0.08); max-width:620px; margin:0 auto;
+    }
+    .contact-box p { font-size:15px; color:var(--mid); margin-bottom:32px; line-height:1.8; }
+    .c-links { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; }
+    .c-link {
+      background:var(--light); color:var(--navy); padding:12px 22px;
+      border-radius:8px; text-decoration:none; font-size:14px; font-weight:600; transition:all .3s;
+    }
+    .c-link:hover { background:var(--navy); color:#fff; transform:translateY(-2px); }
+
+    /* FOOTER */
+    footer { background:var(--navy); color:rgba(255,255,255,0.45); text-align:center; padding:24px; font-size:13px; }
+    footer strong { color:var(--gold); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease,transform .7s ease; }
+    .reveal.on { opacity:1; transform:none; }
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      nav{padding:14px 20px;} .nav-links{gap:18px;}
+      .hero{padding:0 20px;} .wrap{padding:56px 20px;}
+      .about-grid,.skills-grid,.proj-grid,.cert-grid{grid-template-columns:1fr;}
+      .contact-box{padding:32px 20px;}
+      .edu-card{flex-direction:column;} .edu-yr{margin-left:0;margin-top:8px;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Harini S</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#internship">Experience</a></li><li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">B.Tech IT · Final Year · 2023 – 2027</div>
+    <h1>Hi, I'm<br><span>Harini S</span></h1>
+    <p class="hero-desc">
+      Aspiring Software Developer & IT Professional from Cuddalore, Tamil Nadu.
+      Passionate about full-stack development, data analysis, and building solutions that matter.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-gold">View My Projects</a>
+      <a href="#contact" class="btn-ghost">Contact Me</a>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-label">Who I Am</div>
+    <div class="sec-title">About Me</div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I am a final year B.Tech Information Technology student at Krishnasamy College of Engineering & Technology, Cuddalore. I have a strong foundation in full-stack web development, data analysis, software testing, and automated system design.</p>
+        <p>I enjoy building things that solve real problems — from smart automation systems to responsive web applications. I am a quick learner, a team player, and always eager to explore new technologies.</p>
+        <p>I scored 85% in my Higher Secondary Certificate and actively participate in hackathons and technical symposiums. Currently seeking internship or entry-level opportunities to contribute to impactful IT projects.</p>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat"><div class="stat-n">5</div><div class="stat-l">Projects Completed</div></div>
+        <div class="stat"><div class="stat-n">85%</div><div class="stat-l">HSC Score</div></div>
+        <div class="stat"><div class="stat-n">5+</div><div class="stat-l">Certifications</div></div>
+        <div class="stat"><div class="stat-n">3</div><div class="stat-l">Languages Known</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-label">What I Know</div>
+    <div class="sec-title">Technical Skills</div>
+    <div class="skills-grid">
+      <div class="skill-card reveal"><div class="sk-icon">💻</div><h3>Programming Languages</h3><div class="tags"><span class="tag">C</span><span class="tag">C++</span><span class="tag">Python (Basics)</span><span class="tag">Java (Basics)</span></div></div>
+      <div class="skill-card reveal"><div class="sk-icon">🌐</div><h3>Web Technologies</h3><div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript (Basics)</span></div></div>
+      <div class="skill-card reveal"><div class="sk-icon">🗄️</div><h3>Database</h3><div class="tags"><span class="tag">MySQL</span><span class="tag">SQL (Basic Queries)</span></div></div>
+      <div class="skill-card reveal"><div class="sk-icon">🛠️</div><h3>Tools</h3><div class="tags"><span class="tag">VS Code</span><span class="tag">MS Office</span><span class="tag">Google Workspace</span><span class="tag">Canva</span><span class="tag">Git (Basic)</span></div></div>
+      <div class="skill-card reveal"><div class="sk-icon">🤝</div><h3>Soft Skills</h3><div class="tags"><span class="tag">Communication</span><span class="tag">Problem Solving</span><span class="tag">Quick Learner</span><span class="tag">Team Collaboration</span><span class="tag">Presentation Skills</span></div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- INTERNSHIP -->
+<section id="internship">
+  <div class="wrap">
+    <div class="sec-label">Work Experience</div>
+    <div class="sec-title">Internship Experience</div>
+    <div class="edu-list">
+      <div class="edu-card reveal" style="border-left-color:#C9A84C">
+        <div>
+          <h3>Software Development Intern</h3>
+          <div class="edu-school">Cognifyz IT Solutions Pvt. Ltd. &nbsp;·&nbsp; Remote</div>
+          <div class="edu-note">Ref: CTI/A1/C363649 &nbsp;·&nbsp; Coding, testing & maintaining real-world software solutions</div>
+        </div>
+        <div class="edu-yr">May 2026 – Present</div>
+      </div>
+      <div class="edu-card reveal" style="border-left-color:#C9A84C">
+        <div>
+          <h3>Web Development Intern</h3>
+          <div class="edu-school">InternPE &nbsp;·&nbsp; Remote &nbsp;·&nbsp; Offer ID: IPI#77565</div>
+          <div class="edu-note">2-Week structured web development internship program</div>
+        </div>
+        <div class="edu-yr">May – Jun 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-label">What I Built</div>
+    <div class="sec-title">Projects</div>
+    <div class="proj-grid">
+      <div class="proj-card reveal">
+        <div class="proj-team">Team: Flow Minder</div>
+        <h3>NextGen Water – Smart Resource Automation System</h3>
+        <p>Engineered an automated sensor-driven logic system for water motors to prevent overflow and reduce electrical consumption using rule-based thresholds and QA testing.</p>
+        <div class="tech-tags"><span class="tech">Python</span><span class="tech">Sensor Logic</span><span class="tech">Automation</span><span class="tech">QA Testing</span></div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-team">Individual Project</div>
+        <h3>Real-Time Road Safety & Transit Notification App</h3>
+        <p>Built a responsive web interface for transit route optimization with real-time road anomaly detection and live operator notifications via async JavaScript and REST APIs.</p>
+        <div class="tech-tags"><span class="tech">JavaScript</span><span class="tech">REST APIs</span><span class="tech">HTML5</span><span class="tech">CSS3</span></div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-team">Team: Trio Tech — Research Lead</div>
+        <h3>Human-AI Collaboration System Framework</h3>
+        <p>Evaluated multi-agent AI environments and handoff protocols between autonomous pipelines and human agents. Presented research findings through a formal PowerPoint presentation at college-level project showcase and participated in inter-college competition.</p>
+        <div class="tech-tags"><span class="tech">AI Systems</span><span class="tech">LLM Analysis</span><span class="tech">Research</span></div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-team">Individual Project</div>
+        <h3>Student Result Management System</h3>
+        <p>Developed a Python + MySQL application with CRUD operations, automated report generation, and performance trend tracking for students and faculty.</p>
+        <div class="tech-tags"><span class="tech">Python</span><span class="tech">MySQL</span><span class="tech">CRUD</span><span class="tech">Reports</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="wrap">
+    <div class="sec-label">My Journey</div>
+    <div class="sec-title">Education</div>
+    <div class="edu-list">
+      <div class="edu-card reveal">
+        <div>
+          <h3>B.Tech in Information Technology (4th Year)</h3>
+          <div class="edu-school">Krishnasamy College of Engineering & Technology (KCET), Cuddalore</div>
+          <div class="edu-note">Coursework: Software Testing · Data Analysis · Big Data · Web Development · Logical Coding</div>
+        </div>
+        <div class="edu-yr">2023 – 2027</div>
+      </div>
+      <div class="edu-card reveal">
+        <div>
+          <h3>Higher Secondary Certificate (HSC) — Score: 85%</h3>
+          <div class="edu-school">Sri.P.Muthaiyar Higher Secondary School</div>
+          <div class="edu-note">Passed with Distinction</div>
+        </div>
+        <div class="edu-yr">2023</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="wrap">
+    <div class="sec-label">Credentials</div>
+    <div class="sec-title">Certifications</div>
+    <div class="cert-grid">
+      <div class="cert-card reveal"><div class="cert-org">NPTEL</div><p>Software Testing — Automated frameworks, logic coverage & defect tracking</p></div>
+      <div class="cert-card reveal"><div class="cert-org">Hackathon</div><p>Niral Thiruvizha 3.0 — Technical prototype pitch participant</p></div>
+      <div class="cert-card reveal"><div class="cert-org">Google</div><p>Digital Garage — Digital Marketing Fundamentals</p></div>
+      <div class="cert-card reveal"><div class="cert-org">HackerRank</div><p>SQL & Python Problem Solving Badge</p></div>
+      <div class="cert-card reveal"><div class="cert-org">freeCodeCamp</div><p>Responsive Web Design Certification</p></div>
+      <div class="cert-card reveal"><div class="cert-org">Languages</div><p>Tamil (Native) · English (Professional) · Korean (Basic)</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-label">Get In Touch</div>
+    <div class="sec-title">Contact Me</div>
+    <div class="contact-box reveal">
+      <p>I am open to internship opportunities, entry-level IT roles, and collaborative projects. Feel free to reach out — I would love to connect!</p>
+      <div class="c-links">
+        <a href="mailto:9376harini@gmail.com" class="c-link">✉ Email Me</a>
+        <a href="https://linkedin.com/in/harini-s-69b1942a6" target="_blank" class="c-link">LinkedIn</a>
+        <a href="https://github.com/harini-005" target="_blank" class="c-link">GitHub</a>
+        <a href="tel:+919342292276" class="c-link">📞 Call</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Designed & Built by <strong>Harini S</strong> · Cuddalore, Tamil Nadu</p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('on'), i*90); });
+  }, {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>
